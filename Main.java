@@ -4,7 +4,14 @@ public class Main {
 
     public static void main(String[] args) {
 	// test babysitter driver
-        BabySitter sitter = new BabySitter();
+        String enteredStartTime;
+        String enteredEndTime;
+
+        enteredStartTime = "05:00PM";
+        enteredEndTime = "04:00AM";
+
+
+        BabySitter sitter = new BabySitter(enteredStartTime, enteredEndTime);
 
 
         System.out.println(sitter.checkStartTime());
