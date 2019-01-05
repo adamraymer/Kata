@@ -8,7 +8,7 @@ public class Main {
         String enteredEndTime;
 
         enteredStartTime = "05:00PM";
-        enteredEndTime = "05:00AM";
+        enteredEndTime = "04:00AM";
 
 
         BabySitter sitter = new BabySitter(enteredStartTime, enteredEndTime);
@@ -16,6 +16,7 @@ public class Main {
 
         System.out.println(sitter.checkStartTime());
         System.out.println(sitter.checkEndTime());
+        System.out.println(sitter.checkHourOrder());
 
     }
 }
