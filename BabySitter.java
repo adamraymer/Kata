@@ -35,7 +35,24 @@ public class BabySitter {
 
     public boolean checkEndTime (){
         //this will check end time
-        return true;
+        //check value first
+        int checkEndTime = Integer.parseInt(endTime.substring(1,2));
+        String amOrPM;
+
+        //grab AM or PM
+
+        if (checkValidAMorPM(startTime.substring(5,7))){
+            amOrPM = endTime.substring(5,7);
+
+            if (amOrPM.contentEquals("AM")) {
+                //check AM range
+                if (validAMRange(checkEndTime)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
    public boolean checkValidAMorPM (String value){
@@ -47,10 +64,18 @@ public class BabySitter {
     }
 
     public boolean validPMRange (int value){
-        if ((value >= 5) && (value < 12)){
+        if ((value >= 5) && (value < 12)) {
             return true;
-        } else {
-            return false;
         }
+            return false;
+
+    }
+
+    public boolean validAMRange (int value){
+        if ((value == 12) || (value <= 4)){
+            return true;
+        }
+            return false;
+
     }
 }
