@@ -7,8 +7,8 @@ public class Main {
         String enteredStartTime;
         String enteredEndTime;
 
-        enteredStartTime = "05:00PM";
-        enteredEndTime = "04:00AM";
+        enteredStartTime = "03:00PM";
+        enteredEndTime = "03:00AM";
 
 
         BabySitter sitter = new BabySitter(enteredStartTime, enteredEndTime);

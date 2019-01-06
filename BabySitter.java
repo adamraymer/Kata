@@ -17,7 +17,7 @@ public class BabySitter {
         this.endTime = endTime;
     }
 
-    public int getCheckStartTime() {
+    private int getCheckStartTime() {
         return checkStartTime;
     }
 
@@ -25,7 +25,7 @@ public class BabySitter {
         this.checkStartTime = checkStartTime;
     }
 
-    public int getCheckEndTime() {
+    private int getCheckEndTime() {
         return checkEndTime;
     }
 
@@ -58,7 +58,7 @@ public class BabySitter {
     }
 
 
-    public boolean checkAMPMOrder (){
+    private boolean checkAMPMOrder (){
         boolean checkOrder = true;
         if (startAMorPM.contentEquals("AM") && endAMorPM.contentEquals("PM")){
             checkOrder = false;
@@ -88,15 +88,13 @@ public class BabySitter {
 
             if (startAMorPM.contentEquals("PM")) {
                 //check PM range
-                if (validPMRange(checkStartTime)) {
-                    return true;
-                }
-            } else if (validAMRange(checkStartTime)) {
-                return true;
-            }
+                checkStart = validPMRange(checkStartTime);
+
+
+            } else {checkStart = validAMRange(checkStartTime);}
         }
 
-            return false;
+            return checkStart;
 
     }
 
@@ -105,38 +103,44 @@ public class BabySitter {
         //check value first
 
         //grab AM or PM
-        boolean checkTime = false;
+        boolean checkEnd = false;
         if (checkValidAMorPM(endAMorPM)){
 
             if (endAMorPM.contentEquals("PM")) {
                 //check PM range
-                if (validPMRange(checkEndTime)) {checkTime = true;}
-            } else if (validAMRange(checkEndTime)){checkTime = true;}
+                checkEnd = validPMRange(checkEndTime);
+            } else {checkEnd = validAMRange(checkEndTime);}
         }
 
-        return checkTime;
+        return checkEnd;
     }
 
-   public boolean checkValidAMorPM (String value){
-        if (value.contentEquals("AM") || value.contentEquals("PM") ){
-            return true;
-        }
-            return false;
+   private boolean checkValidAMorPM (String value){
+
+        boolean validAMorPM = false;
+        if (value.contentEquals("AM") || value.contentEquals("PM") )
+            validAMorPM = true;
+
+            return validAMorPM;
     }
 
-    public boolean validPMRange (int value){
-        if ((value >= 5) && (value < 12)) {
-            return true;
-        }
-            return false;
+    private boolean validPMRange (int value){
+
+        boolean validPMRange = false;
+        if ((value >= 5) && (value < 12))
+            validPMRange = true;
+
+            return validPMRange;
 
     }
 
-    public boolean validAMRange (int value){
-        if ((value == 12) || (value <= 4)){
-            return true;
-        }
-            return false;
+    private boolean validAMRange (int value){
+
+        boolean validAMRange = false;
+        if ((value == 12) || (value <= 4))
+            validAMRange = true;
+
+            return validAMRange;
 
     }
 }
