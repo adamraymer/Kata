@@ -1,6 +1,14 @@
 package com.adamraymer.kata1;
 
 public class BabySitter {
+
+    private String startTime;
+    private String endTime;
+    private String startAMorPM;
+    private String endAMorPM;
+    private int checkStartTime;
+    private int checkEndTime;
+
     public String getStartTime() {
         return startTime;
     }
@@ -17,7 +25,7 @@ public class BabySitter {
         this.endTime = endTime;
     }
 
-    private int getCheckStartTime() {
+    protected int getCheckStartTime() {
         return checkStartTime;
     }
 
@@ -25,7 +33,7 @@ public class BabySitter {
         this.checkStartTime = checkStartTime;
     }
 
-    private int getCheckEndTime() {
+    protected int getCheckEndTime() {
         return checkEndTime;
     }
 
@@ -33,31 +41,37 @@ public class BabySitter {
         this.checkEndTime = checkEndTime;
     }
 
-    private String startTime;
-    private String endTime;
-    private String startAMorPM;
-    private String endAMorPM;
-    private int checkStartTime;
-    private int checkEndTime;
+    public void setStartAMorPM(String startAMorPM) {
+        this.startAMorPM = startAMorPM;
+    }
 
+    public void setEndAMorPM(String endAMorPM) {
+        this.endAMorPM = endAMorPM;
+    }
 
+    protected String getStartAMorPM() {
+        return startAMorPM;
+    }
+
+    protected String getEndAMorPM() {
+        return endAMorPM;
+    }
 
     public BabySitter (String enteredStartTime, String enteredEndTime){
         startTime = enteredStartTime;
         endTime = enteredEndTime;
         startAMorPM = startTime.substring(5,7);
         endAMorPM = endTime.substring(5,7);
-        checkStartTime = Integer.parseInt(startTime.substring(1,2));
-        checkEndTime = Integer.parseInt(endTime.substring(1,2));
-    }
-
-
-    public boolean checkTimeEntry (){
-        return true;
 
     }
 
+    public BabySitter (){
+        startTime = "00:00AM";
+        endTime = "00:00PM";
+        startAMorPM = startTime.substring(5,7);
+        endAMorPM = endTime.substring(5,7);
 
+    }
     private boolean checkAMPMOrder (){
         boolean checkOrder = true;
         if (startAMorPM.contentEquals("AM") && endAMorPM.contentEquals("PM")){
@@ -78,6 +92,7 @@ public class BabySitter {
             return checkOrder;
     }
 
+    //remove AMorPM check once the interface is created. Should be able to do it there
     public boolean checkStartTime (){
         //this will check start time
         //check value first
