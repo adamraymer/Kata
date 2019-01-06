@@ -84,9 +84,9 @@ public class BabySitter {
     public boolean checkHourOrder () {
         boolean checkOrder = false;
 
-        if ((startAMorPM.compareTo(endAMorPM) > 0)
-                && (getCheckStartTime() > getCheckEndTime())
-                && checkAMPMOrder ()) {
+        if ((startAMorPM.compareTo(endAMorPM) == 0)
+                && (getCheckEndTime() > getCheckStartTime())
+                && checkAMPMOrder()) {
             checkOrder = true;
         }
             return checkOrder;

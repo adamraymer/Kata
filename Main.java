@@ -9,8 +9,8 @@ public class Main {
         int checkStartTime = 0;
         int checkEndTime = 0;
 
-        enteredStartTime = "13:13PM";
-        enteredEndTime = "03:00AM";
+        enteredStartTime = "05:13PM";
+        enteredEndTime = "01:00AM";
 
         try {
             checkStartTime = Integer.parseInt(enteredStartTime.substring(0, 2));
@@ -34,6 +34,7 @@ public class Main {
         System.out.println(sitter.checkStartTime());
         System.out.println(sitter.checkEndTime());
         System.out.println(sitter.checkHourOrder());
+        sitter.calcHourTotals();
 
     }
 }
