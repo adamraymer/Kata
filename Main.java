@@ -10,7 +10,7 @@ public class Main {
         int checkEndTime = 0;
 
         enteredStartTime = "05:13PM";
-        enteredEndTime = "01:00AM";
+        enteredEndTime = "01:30AM";
 
         try {
             checkStartTime = Integer.parseInt(enteredStartTime.substring(0, 2));
