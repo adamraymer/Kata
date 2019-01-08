@@ -25,15 +25,39 @@ public class BabySitterFamilyA extends BabySitter {
         startAMorPM = super.getStartAMorPM();
         endAMorPM = super.getEndAMorPM();
         endTime = super.getEndTime();
+        boolean endTimeAM = false;
+        boolean startTimeAM = false;
+        int pmStopTime = 0;
 
+        if (endAMorPM.contentEquals("AM")) {
+            endTimeAM = true;
+        }
+
+        if (startAMorPM.contentEquals("AM")) {
+            startTimeAM = true;
+        }
+
+        if (endTimeAM == true) {
+            pmStopTime = 11;
+        } else {
+            pmStopTime = endHour;
+        }
+
+        System.out.println(pmStopTime);
         //count number of billable hours. Need to check where any change from PM to AM would be
-        if ((endHour <= 11) || (endAMorPM == "AM")) {
-            for (int i = startHour; i < 11; i++) {
+        if ((endHour <= 11) || (endTimeAM)) {
+            for (int i = startHour; i < pmStopTime; i++) {
+                totalBill = totalBill + 15;
+            }
+
+            if ((endHour != 11) && (Integer.parseInt(endTime.substring(3, 5)) > 1)) {
+                //add one more hour for partial hour
                 totalBill = totalBill + 15;
             }
         }
 
-        if ((endHour == 11) && (Integer.parseInt(endTime.substring(3, 5)) > 1)) {
+        if ((endHour == 11) && (Integer.parseInt(endTime.substring(3, 5)) > 1) ||
+                ((!startTimeAM) && (endTimeAM))) {
             //add one more hour
             totalBill = totalBill + 20;
         }
