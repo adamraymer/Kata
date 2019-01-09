@@ -21,15 +21,16 @@ public class BabySitterFamilyA extends BabySitter {
         String startAMorPM;
         String endAMorPM;
         String endTime;
-        
+        boolean endTimeAM;
+        boolean startTimeAM;
+        int pmStopTime;
+
         startHour = super.getCheckStartTime();
         endHour = super.getCheckEndTime();
         startAMorPM = super.getStartAMorPM();
         endAMorPM = super.getEndAMorPM();
         endTime = super.getEndTime();
-        boolean endTimeAM;
-        boolean startTimeAM = false;
-        int pmStopTime;
+
 
         endTimeAM = setEndTimeAM(endAMorPM);
         startTimeAM = setStartTimeAM(startAMorPM);
