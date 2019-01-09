@@ -10,8 +10,8 @@ public class Main {
         int checkEndTime = 0;
         int totalBill = 0;
 
-        enteredStartTime = "05:13PM";
-        enteredEndTime = "03:30AM";
+        enteredStartTime = "05:00PM";
+        enteredEndTime = "11:00PM";
 
         try {
             checkStartTime = Integer.parseInt(enteredStartTime.substring(0, 2));
@@ -28,7 +28,7 @@ public class Main {
         }
 
 
-        BabySitterFamilyA sitter = new BabySitterFamilyA(enteredStartTime, enteredEndTime);
+        BabySitterFamilyB sitter = new BabySitterFamilyB(enteredStartTime, enteredEndTime);
         sitter.setCheckStartTime(checkStartTime);
         sitter.setCheckEndTime(checkEndTime);
 
