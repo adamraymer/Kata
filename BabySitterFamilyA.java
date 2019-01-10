@@ -8,6 +8,7 @@ public class BabySitterFamilyA extends BabySitter {
     public BabySitterFamilyA(String enteredStartTime, String enteredEndTime) {
         setStartTime(enteredStartTime);
         setEndTime(enteredEndTime);
+        setEndMin(enteredEndTime);
         setStartAMorPM(enteredStartTime.substring(5, 7));
         setEndAMorPM(enteredEndTime.substring(5, 7));
 

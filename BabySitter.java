@@ -8,6 +8,8 @@ public class BabySitter {
     private String endAMorPM;
     private int checkStartTime;
     private int checkEndTime;
+    private int endMin;
+    private int startMin;
 
     public String getStartTime() {
         return startTime;
@@ -56,6 +58,11 @@ public class BabySitter {
     protected String getEndAMorPM() {
         return endAMorPM;
     }
+
+    protected void setEndMin (String endTime) { this.endMin = Integer.parseInt(endTime.substring(3, 5));}
+
+    protected int getEndMin () {return endMin;}
+
 
     public BabySitter (String enteredStartTime, String enteredEndTime){
         startTime = enteredStartTime;

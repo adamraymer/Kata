@@ -10,8 +10,8 @@ public class Main {
         int checkEndTime = 0;
         int totalBill = 0;
 
-        enteredStartTime = "10:30PM";
-        enteredEndTime = "02:30AM";
+        enteredStartTime = "05:30PM";
+        enteredEndTime = "07:30PM";
 
         try {
             checkStartTime = Integer.parseInt(enteredStartTime.substring(0, 2));
