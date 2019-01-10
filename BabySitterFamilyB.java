@@ -13,8 +13,8 @@ public class BabySitterFamilyB extends BabySitter {
     //Family B pays $12 per hour before 10pm, $8 between 10 and 12, and $16 the rest of the night
 
     public int calcHourTotals(int totalBill) {
-        int startHour = 0;
-        int endHour = 0;
+        int startHour;
+        int endHour;
         String startAMorPM;
         String endAMorPM;
         String endTime;
@@ -60,7 +60,7 @@ public class BabySitterFamilyB extends BabySitter {
             }
         }
 
-        if (endHour >= 10 && endHour <= 12) {
+        if ((startHour >= 10 && startHour <= 12) || (endHour >= 10 && endHour <= 12) || (startHour >=5 && endTimeAM == true)) {
             //add range of 10:00PM to 12:00AM if endTime falls in that range
             if (startHour >= 10 && !startTimeAM) {
                 pmStartTime = startHour;
@@ -80,6 +80,23 @@ public class BabySitterFamilyB extends BabySitter {
             } else if (endHour <= 12 && Integer.parseInt(endTime.substring(3, 5)) > 1 && !endTimeAM){
                 totalBill = totalBill + 8;
             }
+        }
+
+        if (endHour >= 1) {
+            int thirdTier = 0;
+
+            if (startTimeAM == true && startHour < 12) {
+                thirdTier = startHour;
+            }
+
+            for (int i = thirdTier; i < endHour; i++) {
+                totalBill = totalBill + 16;
+            }
+
+            if (Integer.parseInt(endTime.substring(3, 5)) > 1 ) {
+                totalBill = totalBill + 16;
+            }
+
         }
 
         return totalBill;
