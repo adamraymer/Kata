@@ -5,6 +5,7 @@ public class BabySitterFamilyB extends BabySitter {
     public BabySitterFamilyB(String enteredStartTime, String enteredEndTime) {
         setStartTime(enteredStartTime);
         setEndTime(enteredEndTime);
+        setEndMin(enteredEndTime);
         setStartAMorPM(enteredStartTime.substring(5, 7));
         setEndAMorPM(enteredEndTime.substring(5, 7));
 
@@ -17,7 +18,6 @@ public class BabySitterFamilyB extends BabySitter {
         int endHour;
         String startAMorPM;
         String endAMorPM;
-        String endTime;
         boolean endTimeAM;
         boolean startTimeAM;
         int pmStopTime;
@@ -27,12 +27,10 @@ public class BabySitterFamilyB extends BabySitter {
         endHour = super.getCheckEndTime();
         startAMorPM = super.getStartAMorPM();
         endAMorPM = super.getEndAMorPM();
-        endTime = super.getEndTime();
-
 
         endTimeAM = setEndTimeAM(endAMorPM);
         startTimeAM = setStartTimeAM(startAMorPM);
-        pmStopTime = setPMStopTime(endTimeAM, endHour);
+
 
         if (endHour == startHour) {
             //start time and end time occur in the same hour
@@ -54,13 +52,13 @@ public class BabySitterFamilyB extends BabySitter {
                 totalBill = totalBill + 12;
             }
 
-            if ((endHour <= 10) && (!endTimeAM) && (Integer.parseInt(endTime.substring(3, 5)) > 1)) {
+            if (endHour <= 10 && !endTimeAM && getEndMin() > 1) {
                 //add one more hour for partial hour
                 totalBill = totalBill + 12;
             }
         }
 
-        if ((startHour >= 10 && startHour <= 12) || (endHour >= 10 && endHour <= 12) || (startHour >=5 && endTimeAM == true)) {
+        if ((startHour >= 10 && startHour <= 12 && endTimeAM == true) || (endHour >= 10 && endHour <= 12)) {
             //add range of 10:00PM to 12:00AM if endTime falls in that range
             if (startHour >= 10 && !startTimeAM) {
                 pmStartTime = startHour;
@@ -74,15 +72,15 @@ public class BabySitterFamilyB extends BabySitter {
                 totalBill = totalBill + 8;
             }
 
-            if (endHour == 12 && Integer.parseInt(endTime.substring(3, 5)) > 1 ) {
+            if (endHour == 12 && getEndMin() > 1 ) {
                 //hour over lap into 12:00 to 12:59 range
                 totalBill = totalBill + 16;
-            } else if (endHour <= 12 && Integer.parseInt(endTime.substring(3, 5)) > 1 && !endTimeAM){
+            } else if (endHour <= 12 && getEndMin() > 1 && !endTimeAM){
                 totalBill = totalBill + 8;
             }
         }
 
-        if (endHour >= 1) {
+        if (endHour >= 1 && endTimeAM == true) {
             int thirdTier = 0;
 
             if (startTimeAM == true && startHour < 12) {
@@ -93,7 +91,7 @@ public class BabySitterFamilyB extends BabySitter {
                 totalBill = totalBill + 16;
             }
 
-            if (Integer.parseInt(endTime.substring(3, 5)) > 1 ) {
+            if (getEndMin() > 1 ) {
                 totalBill = totalBill + 16;
             }
 
@@ -120,14 +118,4 @@ public class BabySitterFamilyB extends BabySitter {
         return startTimeAM;
     }
 
-    private int setPMStopTime (boolean endTimeAM, int endHour) {
-        int pmStopTime;
-        if (endHour < 10) {
-            pmStopTime = 11;
-        } else {
-            pmStopTime = endHour;
-        }
-
-        return pmStopTime;
-    }
 }
