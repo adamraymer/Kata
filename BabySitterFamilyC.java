@@ -21,6 +21,7 @@ public class BabySitterFamilyC extends BabySitter{
             String endAMorPM;
             boolean endTimeAM;
             boolean startTimeAM;
+            int pmStopTime;
 
 
             startHour = super.getCheckStartTime();
@@ -42,9 +43,13 @@ public class BabySitterFamilyC extends BabySitter{
             }
 
             //count number of billable hours. Need to check where any change from PM to AM would be
-            if ((endHour < 9 || endTimeAM) && !startTimeAM) {
-                for (int i = startHour; i < endHour; i++) {
-                    totalBill = totalBill + 21;
+            if (endTimeAM || !startTimeAM) {
+                if (!endTimeAM && endHour < 9) {
+                    pmStopTime = endHour;
+                } else {pmStopTime = 9;}
+
+                for (int i = startHour; i < pmStopTime; i++) {
+                        totalBill = totalBill + 21;
                 }
 
                 if (endHour < 9 && getEndMin() > 1) {
@@ -56,7 +61,11 @@ public class BabySitterFamilyC extends BabySitter{
 
             if (endHour >= 9) {
                 // if endHour >= 9 then it is PM due to range constraints
-                for (int i = 9; i <= endHour; i++ ){
+                for (int i = 9; i < endHour; i++ ){
+                    totalBill = totalBill + 15;
+                }
+                if (getEndMin() > 1) {
+                    //add one more hour for partial hour
                     totalBill = totalBill + 15;
                 }
             } else if (endTimeAM) {
@@ -67,10 +76,11 @@ public class BabySitterFamilyC extends BabySitter{
                 for (int i = 0; i <= endHour; i++) {
                     totalBill = totalBill + 15;
                 }
-            }
-            if ((endHour == 9 && getEndMin() > 1) || (!startTimeAM && endTimeAM)) {
-                //add range of 9:00 to :59 if endTime falls in that range
-                totalBill = totalBill + 15;
+
+                if (getEndMin() > 1) {
+                    //add one more hour for partial hour
+                    totalBill = totalBill + 15;
+                }
             }
 
             return totalBill;
