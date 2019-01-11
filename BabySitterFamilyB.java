@@ -28,8 +28,8 @@ public class BabySitterFamilyB extends BabySitter {
         startAMorPM = super.getStartAMorPM();
         endAMorPM = super.getEndAMorPM();
 
-        endTimeAM = setEndTimeAM(endAMorPM);
-        startTimeAM = setStartTimeAM(startAMorPM);
+        endTimeAM = super.setEndTimeAM(endAMorPM);
+        startTimeAM = super.setStartTimeAM(startAMorPM);
 
 
         if (endHour == startHour) {
@@ -58,7 +58,7 @@ public class BabySitterFamilyB extends BabySitter {
             }
         }
 
-        if ((startHour >= 10 && startHour <= 12 && endTimeAM == true) || (endHour >= 10 && endHour <= 12)) {
+        if ((startHour >= 10 && startHour <= 12 && endTimeAM) || (endHour >= 10 && endHour <= 12)) {
             //add range of 10:00PM to 12:00AM if endTime falls in that range
             if (startHour >= 10 && !startTimeAM) {
                 pmStartTime = startHour;
@@ -80,10 +80,10 @@ public class BabySitterFamilyB extends BabySitter {
             }
         }
 
-        if (endHour >= 1 && endTimeAM == true) {
+        if (endHour >= 1 && endTimeAM) {
             int thirdTier = 0;
 
-            if (startTimeAM == true && startHour < 12) {
+            if (startTimeAM && startHour < 12) {
                 thirdTier = startHour;
             }
 
@@ -100,22 +100,5 @@ public class BabySitterFamilyB extends BabySitter {
         return totalBill;
     }
 
-    private boolean setEndTimeAM(String endAMorPM) {
-        boolean endTimeAM = false;
-        if (endAMorPM.contentEquals("AM")) {
-            endTimeAM = true;
-        }
-
-        return endTimeAM;
-    }
-
-    private boolean setStartTimeAM (String startAMorPM) {
-        boolean startTimeAM = false;
-        if (startAMorPM.contentEquals("AM")) {
-            startTimeAM = true;
-        }
-
-        return startTimeAM;
-    }
 
 }

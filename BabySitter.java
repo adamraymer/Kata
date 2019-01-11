@@ -165,4 +165,22 @@ public class BabySitter {
             return validAMRange;
 
     }
+
+    protected boolean setEndTimeAM(String endAMorPM) {
+        boolean endTimeAM = false;
+        if (endAMorPM.contentEquals("AM")) {
+            endTimeAM = true;
+        }
+
+        return endTimeAM;
+    }
+
+    protected boolean setStartTimeAM (String startAMorPM) {
+        boolean startTimeAM = false;
+        if (startAMorPM.contentEquals("AM")) {
+            startTimeAM = true;
+        }
+
+        return startTimeAM;
+    }
 }
