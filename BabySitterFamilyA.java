@@ -2,9 +2,6 @@ package com.adamraymer.kata1;
 
 public class BabySitterFamilyA extends BabySitter {
 
-
-
-
     public BabySitterFamilyA(String enteredStartTime, String enteredEndTime) {
         setStartTime(enteredStartTime);
         setEndTime(enteredEndTime);
@@ -17,11 +14,10 @@ public class BabySitterFamilyA extends BabySitter {
     //Family A pays $15 per hour before 11pm, and $20 per hour the rest of the night
 
     public int calcHourTotals(int totalBill) {
-        int startHour = 0;
-        int endHour = 0;
+        int startHour;
+        int endHour;
         String startAMorPM;
         String endAMorPM;
-        String endTime;
         boolean endTimeAM;
         boolean startTimeAM;
         int pmStopTime;
@@ -30,11 +26,9 @@ public class BabySitterFamilyA extends BabySitter {
         endHour = super.getCheckEndTime();
         startAMorPM = super.getStartAMorPM();
         endAMorPM = super.getEndAMorPM();
-        endTime = super.getEndTime();
 
-
-        endTimeAM = setEndTimeAM(endAMorPM);
-        startTimeAM = setStartTimeAM(startAMorPM);
+        endTimeAM = super.setEndTimeAM(endAMorPM);
+        startTimeAM = super.setStartTimeAM(startAMorPM);
         pmStopTime = setPMStopTime(endTimeAM, endHour);
 
         if (endHour == startHour) {
@@ -47,28 +41,27 @@ public class BabySitterFamilyA extends BabySitter {
         }
 
         //count number of billable hours. Need to check where any change from PM to AM would be
-        if ((endHour <= 11) || (endTimeAM)) {
+        if ((endHour <= 11 || endTimeAM) && startHour <= 5) {
             for (int i = startHour; i < pmStopTime; i++) {
                 totalBill = totalBill + 15;
             }
 
-            if ((endHour != 11) && (!endTimeAM) && (Integer.parseInt(endTime.substring(3, 5)) > 1)) {
+            if (endHour != 11 && !endTimeAM && getEndMin() > 1) {
                 //add one more hour for partial hour
                 totalBill = totalBill + 15;
             }
         }
 
-        if ((endHour == 11) && (Integer.parseInt(endTime.substring(3, 5)) > 1) ||
-                ((!startTimeAM) && (endTimeAM))) {
+        if ((endHour == 11 && getEndMin() > 1) || (!startTimeAM && endTimeAM)) {
             //add range of 11:00 to 11:59 if endTime falls in that range
             totalBill = totalBill + 20;
         }
 
-        if (endAMorPM.contentEquals("AM")) {
-            if (startAMorPM.contentEquals("PM")) {
+        if (endTimeAM) {
+            if (!startTimeAM) {
                 //this covers 11:00PM to 11:59PM
                 // totalBill = totalBill +20;
-                if (endHour == 12 && Integer.parseInt(endTime.substring(3, 5)) > 1) {
+                if (endHour == 12 && getEndMin() > 1) {
                     totalBill = totalBill + 20;
                 } else {
                     for (int i = 0; i <= endHour; i++) {
@@ -77,7 +70,7 @@ public class BabySitterFamilyA extends BabySitter {
                     }
                 }
             }
-            if (startAMorPM.contentEquals("AM")) {
+            if (startTimeAM) {
                 //if startHour is 1AM or later
                 if (startHour >= 1 && startHour <= 4) {
                     for (int i = startHour; i <= endHour; i++) {
@@ -94,26 +87,8 @@ public class BabySitterFamilyA extends BabySitter {
         return totalBill;
     }
 
-    private boolean setEndTimeAM(String endAMorPM) {
-        boolean endTimeAM = false;
-        if (endAMorPM.contentEquals("AM")) {
-            endTimeAM = true;
-        }
-
-        return endTimeAM;
-    }
-
-    private boolean setStartTimeAM (String startAMorPM) {
-        boolean startTimeAM = false;
-        if (startAMorPM.contentEquals("AM")) {
-            startTimeAM = true;
-        }
-
-        return startTimeAM;
-    }
-
     private int setPMStopTime (boolean endTimeAM, int endHour) {
-        int pmStopTime = 0;
+        int pmStopTime;
         if (endTimeAM) {
             pmStopTime = 11;
         } else {
