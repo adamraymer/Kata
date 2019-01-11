@@ -42,8 +42,8 @@ public class BabySitterFamilyC extends BabySitter{
             }
 
             //count number of billable hours. Need to check where any change from PM to AM would be
-            if ((endHour < 9 || endTimeAM) && startHour <= 5) {
-                for (int i = startHour; i < pmStopTime; i++) {
+            if ((endHour < 9 || endTimeAM) && !startTimeAM) {
+                for (int i = startHour; i < endHour; i++) {
                     totalBill = totalBill + 21;
                 }
 
@@ -75,7 +75,7 @@ public class BabySitterFamilyC extends BabySitter{
 
             return totalBill;
         }
-        
+
 }
 
 
