@@ -10,8 +10,8 @@ public class Main {
         int checkStartTime = 0;
         int checkEndTime = 0;
         int totalBill = 0;
-        boolean inputInvalid = true;
-        char family;
+        boolean inputValid = false;
+        String familyDesignation;
 
         enteredStartTime = "05:00PM";
         enteredEndTime = "11:30PM";
@@ -23,31 +23,35 @@ public class Main {
         System.out.print("Which family is this for? ");
         String inputLine = in.nextLine().toUpperCase();
 
-        while (inputInvalid) {
+        while (!inputValid) {
 
             switch (inputLine) {
                 case "A":
-                    inputInvalid = false;
+                    inputValid = true;
                     break;
                 case "B":
-                    inputInvalid = false;
+                    inputValid = true;
                     break;
                 case "C":
-                    inputInvalid = false;
+                    inputValid = true;
                     break;
                 case "X":
-                    inputInvalid = false;
+                    inputValid = true;
                     break;
                 default:
                     System.out.println("Invalid Family Designation");
 
             }
 
-            if (inputInvalid) {
+            if (!inputValid) {
                 System.out.println("Which family is this for? ");
                 inputLine = in.nextLine().toUpperCase();
+            } else {
+                beginReadTimes(inputLine);
             }
+
         }
+        
         System.out.println(inputLine);
         try {
             checkStartTime = Integer.parseInt(enteredStartTime.substring(0, 2));
@@ -76,5 +80,34 @@ public class Main {
 
     }
 
+    private static void beginReadTimes (String inputLine) {
+        String familyDesignation = inputLine;
+        Scanner in = new Scanner(System.in);
+        String startTime;
+        String endTime;
+        boolean validStartTime = false;
+        boolean validLength = false;
+
+        System.out.print("Enter Start Time (hh:mmAMPM format) ");
+        startTime = in.nextLine();
+
+        while (!validStartTime) {
+            if (startTime.length() == 7){
+                validLength = true;
+            } else {
+                System.out.print("Start time length is incorrect");
+            }
+
+            if (validLength) {
+                validStartTime = true;
+            } else {
+                System.out.print("Enter Start Time (hh:mmAMPM format) ");
+                startTime = in.nextLine();
+            }
+
+
+        }
+
+    }
 
 }
