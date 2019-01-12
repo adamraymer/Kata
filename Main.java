@@ -108,6 +108,7 @@ public class Main {
         Scanner in = new Scanner(System.in);
         String startTime;
         int checkStartTime = 0;
+        int checkStartTimeMin = 0;
         boolean validStartTime = false;
         boolean validLength = false;
 
@@ -119,18 +120,26 @@ public class Main {
             if (startTime.length() == 7){
                 validLength = true;
             } else {
-                System.out.print("Start time length is incorrect");
+                System.out.println("Start time length is incorrect");
                 System.out.print("Enter Start Time (hh:mmAMPM format) ");
                 startTime = in.nextLine();
             }
 
         }
 
-        try {
-            checkStartTime = Integer.parseInt(startTime.substring(0, 2));
-            Integer.parseInt(startTime.substring(3, 5));
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid Start Time Entry: " + startTime);
+
+
+        boolean numericStartTime = false;
+        while (!numericStartTime) {
+            try {
+                checkStartTime = Integer.parseInt(startTime.substring(0, 2));
+                checkStartTimeMin = Integer.parseInt(startTime.substring(3, 5));
+                numericStartTime = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid Start Time Entry: " + startTime);
+                System.out.print("Enter Start Time (hh:mmAMPM format) ");
+                startTime = in.nextLine();
+            }
         }
 
 
