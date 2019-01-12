@@ -51,7 +51,11 @@ public class Main {
             }
 
         }
-        
+        if (!inputLine.toUpperCase().contentEquals("X")) {
+            familySelection(inputLine);
+        }
+
+
         System.out.println(inputLine);
         try {
             checkStartTime = Integer.parseInt(enteredStartTime.substring(0, 2));
@@ -80,8 +84,32 @@ public class Main {
 
     }
 
-    private static void beginReadTimes (String inputLine) {
+    private static void familySelection(String inputLine) {
         String familyDesignation = inputLine;
+        if (familyDesignation.contentEquals("A")) {
+            startBabySitterA();
+        } else if (familyDesignation.contentEquals("B")) {
+            startBabySitterB();
+        } else {
+            startBabySitterC();
+        }
+    }
+
+    private static void startBabySitterA() {
+
+        }
+
+    private static void startBabySitterB() {
+
+    }
+
+    private static void startBabySitterC() {
+
+    }
+    
+
+    private static void beginReadTimes (String inputLine) {
+
         Scanner in = new Scanner(System.in);
         String startTime;
         String endTime;
