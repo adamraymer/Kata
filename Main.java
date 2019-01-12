@@ -10,6 +10,7 @@ public class Main {
         int checkStartTime = 0;
         int checkEndTime = 0;
         int totalBill = 0;
+        boolean inputInvalid = true;
         char family;
 
         enteredStartTime = "05:00PM";
@@ -18,22 +19,35 @@ public class Main {
 //front end checks
         Scanner in = new Scanner(System.in);
 
-        System.out.println("Babysitter hourly calculator");
+        System.out.println("Babysitter hourly calculator (X to quit)");
         System.out.print("Which family is this for? ");
-        String inputLine = in.nextLine();
+        String inputLine = in.nextLine().toUpperCase();
 
-        switch (inputLine) {
-            case "A":
-                break;
-            case "B":
-                break;
-            case "C":
-                break;
-            default:
-                System.out.println("Invalid Family Designation");
+        while (inputInvalid) {
 
+            switch (inputLine) {
+                case "A":
+                    inputInvalid = false;
+                    break;
+                case "B":
+                    inputInvalid = false;
+                    break;
+                case "C":
+                    inputInvalid = false;
+                    break;
+                case "X":
+                    inputInvalid = false;
+                    break;
+                default:
+                    System.out.println("Invalid Family Designation");
+
+            }
+
+            if (inputInvalid) {
+                System.out.println("Which family is this for? ");
+                inputLine = in.nextLine().toUpperCase();
+            }
         }
-
         System.out.println(inputLine);
         try {
             checkStartTime = Integer.parseInt(enteredStartTime.substring(0, 2));
@@ -61,4 +75,6 @@ public class Main {
         System.out.println(sitter.calcHourTotals(totalBill));
 
     }
+
+
 }
