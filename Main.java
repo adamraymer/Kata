@@ -46,23 +46,18 @@ public class Main {
             if (!inputValid) {
                 System.out.println("Which family is this for? ");
                 inputLine = in.nextLine().toUpperCase();
-            } else {
-                beginReadTimes(inputLine);
             }
 
         }
+
+        checkTimeEntry();
         if (!inputLine.toUpperCase().contentEquals("X")) {
             familySelection(inputLine);
         }
 
 
         System.out.println(inputLine);
-        try {
-            checkStartTime = Integer.parseInt(enteredStartTime.substring(0, 2));
-            Integer.parseInt(enteredStartTime.substring(3, 5));
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid Start Time Entry: " + enteredStartTime);
-        }
+
 
         try {
             checkEndTime = Integer.parseInt(enteredEndTime.substring(0, 2));
@@ -106,35 +101,38 @@ public class Main {
     private static void startBabySitterC() {
 
     }
-    
 
-    private static void beginReadTimes (String inputLine) {
+
+    private static void checkTimeEntry () {
 
         Scanner in = new Scanner(System.in);
         String startTime;
-        String endTime;
+        int checkStartTime = 0;
         boolean validStartTime = false;
         boolean validLength = false;
 
         System.out.print("Enter Start Time (hh:mmAMPM format) ");
         startTime = in.nextLine();
 
-        while (!validStartTime) {
+        //a valid length should be 7 characters
+        while (!validLength) {
             if (startTime.length() == 7){
                 validLength = true;
             } else {
                 System.out.print("Start time length is incorrect");
-            }
-
-            if (validLength) {
-                validStartTime = true;
-            } else {
                 System.out.print("Enter Start Time (hh:mmAMPM format) ");
                 startTime = in.nextLine();
             }
 
-
         }
+
+        try {
+            checkStartTime = Integer.parseInt(startTime.substring(0, 2));
+            Integer.parseInt(startTime.substring(3, 5));
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid Start Time Entry: " + startTime);
+        }
+
 
     }
 
