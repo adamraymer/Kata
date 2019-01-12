@@ -1,4 +1,5 @@
 package com.adamraymer.kata1;
+import java.util.Scanner;
 
 public class Main {
 
@@ -9,10 +10,31 @@ public class Main {
         int checkStartTime = 0;
         int checkEndTime = 0;
         int totalBill = 0;
+        char family;
 
         enteredStartTime = "05:00PM";
         enteredEndTime = "11:30PM";
 
+//front end checks
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("Babysitter hourly calculator");
+        System.out.print("Which family is this for? ");
+        String inputLine = in.nextLine();
+
+        switch (inputLine) {
+            case "A":
+                break;
+            case "B":
+                break;
+            case "C":
+                break;
+            default:
+                System.out.println("Invalid Family Designation");
+
+        }
+
+        System.out.println(inputLine);
         try {
             checkStartTime = Integer.parseInt(enteredStartTime.substring(0, 2));
             Integer.parseInt(enteredStartTime.substring(3, 5));
