@@ -9,10 +9,13 @@ public class BabySitterFamilyC extends BabySitter{
             setEndMin(enteredEndTime);
             setStartAMorPM(enteredStartTime.substring(5, 7));
             setEndAMorPM(enteredEndTime.substring(5, 7));
+            setCheckStartTime(Integer.parseInt(enteredStartTime.substring(0, 2)));
+            setCheckEndTime(Integer.parseInt(enteredEndTime.substring(0, 2)));
+            setCheckStartTimeMin(Integer.parseInt(enteredStartTime.substring(3, 5)));
+            setCheckEndTimeMin(Integer.parseInt(enteredEndTime.substring(3, 5)));
 
         }
 
-        public BabySitterFamilyC() {}
 
         //Family C pays $21 per hour before 9pm, then $15 the rest of the night
 
