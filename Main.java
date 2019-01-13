@@ -3,6 +3,11 @@ import java.util.Scanner;
 
 public class Main {
 
+    private static int checkStartTime = 0;
+    private static int checkEndTime = 0;
+    private static int checkStartTimeMin = 0;
+    private static int checkEndTimeMin = 0;
+
     public static void main(String[] args) {
 	// test babysitter driver
         String enteredStartTime;
@@ -12,9 +17,6 @@ public class Main {
         int totalBill = 0;
         boolean inputValid = false;
         String familyDesignation;
-
-        enteredStartTime = "05:00PM";
-        enteredEndTime = "11:30PM";
 
 //front end checks
         Scanner in = new Scanner(System.in);
@@ -50,27 +52,18 @@ public class Main {
 
         }
 
-        checkTimeEntry();
+        enteredStartTime = checkStartTimeEntry();
+        enteredEndTime = checkEndTimeEntry();
+
         if (!inputLine.toUpperCase().contentEquals("X")) {
             familySelection(inputLine);
         }
 
 
-        System.out.println(inputLine);
-
-
-        try {
-            checkEndTime = Integer.parseInt(enteredEndTime.substring(0, 2));
-            Integer.parseInt(enteredEndTime.substring(3, 5));
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid End Time Entry: " + enteredEndTime);
-        }
-
 
         BabySitterFamilyA sitter = new BabySitterFamilyA(enteredStartTime, enteredEndTime);
       //  BabySitterFamilyB sitter = new BabySitterFamilyB(enteredStartTime, enteredEndTime);
-        sitter.setCheckStartTime(checkStartTime);
-        sitter.setCheckEndTime(checkEndTime);
+
 
         System.out.println(sitter.checkStartTime());
         System.out.println(sitter.checkEndTime());
@@ -103,12 +96,10 @@ public class Main {
     }
 
 
-    private static void checkTimeEntry () {
+    private static String checkStartTimeEntry () {
 
         Scanner in = new Scanner(System.in);
         String startTime;
-        int checkStartTime = 0;
-        int checkStartTimeMin = 0;
         boolean validStartTime = false;
         boolean validLength = false;
 
@@ -127,13 +118,11 @@ public class Main {
 
         }
 
-
-
         boolean numericStartTime = false;
         while (!numericStartTime) {
             try {
-                checkStartTime = Integer.parseInt(startTime.substring(0, 2));
-                checkStartTimeMin = Integer.parseInt(startTime.substring(3, 5));
+                Integer.parseInt(startTime.substring(0, 2));
+                Integer.parseInt(startTime.substring(3, 5));
                 numericStartTime = true;
             } catch (NumberFormatException e) {
                 System.out.println("Invalid Start Time Entry: " + startTime);
@@ -142,7 +131,46 @@ public class Main {
             }
         }
 
+        return startTime;
 
+    }
+
+    private static String checkEndTimeEntry () {
+
+        Scanner in = new Scanner(System.in);
+        String endTime;
+        boolean validEndTime = false;
+        boolean validLength = false;
+
+        System.out.print("Enter End Time (hh:mmAMPM format) ");
+        endTime = in.nextLine();
+
+        //a valid length should be 7 characters
+        while (!validLength) {
+            if (endTime.length() == 7){
+                validLength = true;
+            } else {
+                System.out.println("End time length is incorrect");
+                System.out.print("Enter End Time (hh:mmAMPM format) ");
+                endTime = in.nextLine();
+            }
+
+        }
+
+        boolean numericEndTime = false;
+        while (!numericEndTime) {
+            try {
+                Integer.parseInt(endTime.substring(0, 2));
+                Integer.parseInt(endTime.substring(3, 5));
+                numericEndTime = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid End Time Entry: " + endTime);
+                System.out.print("Enter End Time (hh:mmAMPM format) ");
+                endTime = in.nextLine();
+            }
+        }
+
+        return endTime;
     }
 
 }

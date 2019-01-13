@@ -11,6 +11,9 @@ public class BabySitterFamilyB extends BabySitter {
 
     }
 
+    public BabySitterFamilyB() {}
+
+
     //Family B pays $12 per hour before 10pm, $8 between 10 and 12, and $16 the rest of the night
 
     public int calcHourTotals(int totalBill) {

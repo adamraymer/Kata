@@ -8,6 +8,10 @@ public class BabySitterFamilyA extends BabySitter {
         setEndMin(enteredEndTime);
         setStartAMorPM(enteredStartTime.substring(5, 7));
         setEndAMorPM(enteredEndTime.substring(5, 7));
+        setCheckStartTime(Integer.parseInt(enteredStartTime.substring(0, 2)));
+        setCheckEndTime(Integer.parseInt(enteredEndTime.substring(0, 2)));
+        setCheckStartTimeMin(Integer.parseInt(enteredStartTime.substring(3, 5)));
+        setCheckEndTimeMin(Integer.parseInt(enteredEndTime.substring(3, 5)));
 
     }
 
@@ -29,7 +33,6 @@ public class BabySitterFamilyA extends BabySitter {
 
         endTimeAM = super.setEndTimeAM(endAMorPM);
         startTimeAM = super.setStartTimeAM(startAMorPM);
- //       pmStopTime = setPMStopTime(endTimeAM, endHour);
 
         if (endHour == startHour) {
             //start time and end time occur in the same hour
@@ -40,7 +43,7 @@ public class BabySitterFamilyA extends BabySitter {
             }
         }
 
-        if (endTimeAM || !startTimeAM) {
+        if (!startTimeAM) {
             if (!endTimeAM && endHour < 11) {
                 pmStopTime = endHour;
             } else {pmStopTime = 11;}
@@ -67,11 +70,18 @@ public class BabySitterFamilyA extends BabySitter {
             }
         } else if (endTimeAM) {
             //endHour is between 1 to 4
-            //add one hour to cover 11PM to 12AM
-            totalBill = totalBill + 20;
-
-            for (int i = 0; i <= endHour; i++) {
+            //add one hour to cover 11PM to 12AM if start time was PM
+            if (!startTimeAM) {
                 totalBill = totalBill + 20;
+
+                for (int i = 0; i <= endHour; i++) {
+                    totalBill = totalBill + 20;
+                }
+            } else {
+                //AM start time
+                for (int i = startHour; i < endHour; i++) {
+                    totalBill = totalBill + 20;
+                }
             }
 
             if (getEndMin() > 1) {

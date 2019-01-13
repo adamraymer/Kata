@@ -8,6 +8,8 @@ public class BabySitter {
     private String endAMorPM;
     private int checkStartTime;
     private int checkEndTime;
+    private int checkStartTimeMin;
+    private int checkEndTimeMin;
     private int endMin;
     private int startMin;
 
@@ -41,6 +43,22 @@ public class BabySitter {
 
     public void setCheckEndTime(int checkEndTime) {
         this.checkEndTime = checkEndTime;
+    }
+
+    protected int getCheckStartTimeMin() {
+        return checkStartTimeMin;
+    }
+
+    public void setCheckStartTimeMin(int checkStartTime) {
+        this.checkStartTimeMin = checkStartTimeMin;
+    }
+
+    protected int getCheckEndTimeMin() {
+        return checkEndTimeMin;
+    }
+
+    public void setCheckEndTimeMin(int checkEndTimeMin) {
+        this.checkEndTimeMin = checkEndTimeMin;
     }
 
     public void setStartAMorPM(String startAMorPM) {
