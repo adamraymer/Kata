@@ -8,11 +8,12 @@ public class BabySitterFamilyB extends BabySitter {
         setEndMin(enteredEndTime);
         setStartAMorPM(enteredStartTime.substring(5, 7));
         setEndAMorPM(enteredEndTime.substring(5, 7));
+        setCheckStartTime(Integer.parseInt(enteredStartTime.substring(0, 2)));
+        setCheckEndTime(Integer.parseInt(enteredEndTime.substring(0, 2)));
+        setCheckStartTimeMin(Integer.parseInt(enteredStartTime.substring(3, 5)));
+        setCheckEndTimeMin(Integer.parseInt(enteredEndTime.substring(3, 5)));
 
     }
-
-    public BabySitterFamilyB() {}
-
 
     //Family B pays $12 per hour before 10pm, $8 between 10 and 12, and $16 the rest of the night
 

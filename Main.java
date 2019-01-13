@@ -9,7 +9,7 @@ public class Main {
     private static int checkEndTimeMin = 0;
 
     public static void main(String[] args) {
-	// test babysitter driver
+        // test babysitter driver
         String enteredStartTime;
         String enteredEndTime;
         int checkStartTime = 0;
@@ -56,42 +56,64 @@ public class Main {
         enteredEndTime = checkEndTimeEntry();
 
         if (!inputLine.toUpperCase().contentEquals("X")) {
-            familySelection(inputLine);
+            if (inputLine.toUpperCase().contentEquals("A")) {
+                BabySitterFamilyA sitter = new BabySitterFamilyA(enteredStartTime, enteredEndTime);
+
+                if (sitter.checkStartTime() && sitter.checkEndTime() && sitter.checkHourOrder()) {
+                    System.out.println(sitter.calcHourTotals(totalBill));
+                } else {
+                    System.out.println("Invalid Hour Range");
+                    enteredStartTime = checkStartTimeEntry();
+                    enteredEndTime = checkEndTimeEntry();
+                    sitter.setStartTime(enteredStartTime);
+                    sitter.setEndTime(enteredEndTime);
+                    sitter.setEndMin(enteredEndTime);
+                    sitter.setStartAMorPM(enteredStartTime.substring(5, 7));
+                    sitter.setEndAMorPM(enteredEndTime.substring(5, 7));
+                    sitter.setCheckStartTime(Integer.parseInt(enteredStartTime.substring(0, 2)));
+                    sitter.setCheckEndTime(Integer.parseInt(enteredEndTime.substring(0, 2)));
+                    sitter.setCheckStartTimeMin(Integer.parseInt(enteredStartTime.substring(3, 5)));
+                    sitter.setCheckEndTimeMin(Integer.parseInt(enteredEndTime.substring(3, 5)));
+                }
+
+            } else if (inputLine.toUpperCase().contentEquals("B")) {
+                BabySitterFamilyB sitter = new BabySitterFamilyB(enteredStartTime, enteredEndTime);
+                if (sitter.checkStartTime() && sitter.checkEndTime() && sitter.checkHourOrder()) {
+                    System.out.println(sitter.calcHourTotals(totalBill));
+                } else {
+                    System.out.println("Invalid Hour Range");
+                    enteredStartTime = checkStartTimeEntry();
+                    enteredEndTime = checkEndTimeEntry();
+                    sitter.setStartTime(enteredStartTime);
+                    sitter.setEndTime(enteredEndTime);
+                    sitter.setEndMin(enteredEndTime);
+                    sitter.setStartAMorPM(enteredStartTime.substring(5, 7));
+                    sitter.setEndAMorPM(enteredEndTime.substring(5, 7));
+                    sitter.setCheckStartTime(Integer.parseInt(enteredStartTime.substring(0, 2)));
+                    sitter.setCheckEndTime(Integer.parseInt(enteredEndTime.substring(0, 2)));
+                    sitter.setCheckStartTimeMin(Integer.parseInt(enteredStartTime.substring(3, 5)));
+                    sitter.setCheckEndTimeMin(Integer.parseInt(enteredEndTime.substring(3, 5)));
+                }
+            } else {
+                BabySitterFamilyC sitter = new BabySitterFamilyC(enteredStartTime, enteredEndTime);
+                if (sitter.checkStartTime() && sitter.checkEndTime() && sitter.checkHourOrder()) {
+                    System.out.println(sitter.calcHourTotals(totalBill));
+                } else {
+                    System.out.println("Invalid Hour Range");
+                    enteredStartTime = checkStartTimeEntry();
+                    enteredEndTime = checkEndTimeEntry();
+                    sitter.setStartTime(enteredStartTime);
+                    sitter.setEndTime(enteredEndTime);
+                    sitter.setEndMin(enteredEndTime);
+                    sitter.setStartAMorPM(enteredStartTime.substring(5, 7));
+                    sitter.setEndAMorPM(enteredEndTime.substring(5, 7));
+                    sitter.setCheckStartTime(Integer.parseInt(enteredStartTime.substring(0, 2)));
+                    sitter.setCheckEndTime(Integer.parseInt(enteredEndTime.substring(0, 2)));
+                    sitter.setCheckStartTimeMin(Integer.parseInt(enteredStartTime.substring(3, 5)));
+                    sitter.setCheckEndTimeMin(Integer.parseInt(enteredEndTime.substring(3, 5)));
+                }
+            }
         }
-
-
-
-        BabySitterFamilyA sitter = new BabySitterFamilyA(enteredStartTime, enteredEndTime);
-      //  BabySitterFamilyB sitter = new BabySitterFamilyB(enteredStartTime, enteredEndTime);
-
-
-        System.out.println(sitter.checkStartTime());
-        System.out.println(sitter.checkEndTime());
-        System.out.println(sitter.checkHourOrder());
-        System.out.println(sitter.calcHourTotals(totalBill));
-
-    }
-
-    private static void familySelection(String inputLine) {
-        String familyDesignation = inputLine;
-        if (familyDesignation.contentEquals("A")) {
-            startBabySitterA();
-        } else if (familyDesignation.contentEquals("B")) {
-            startBabySitterB();
-        } else {
-            startBabySitterC();
-        }
-    }
-
-    private static void startBabySitterA() {
-
-        }
-
-    private static void startBabySitterB() {
-
-    }
-
-    private static void startBabySitterC() {
 
     }
 
