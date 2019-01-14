@@ -3,10 +3,6 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static int checkStartTime = 0;
-    private static int checkEndTime = 0;
-    private static int checkStartTimeMin = 0;
-    private static int checkEndTimeMin = 0;
 
     public static void main(String[] args) {
         // test babysitter driver
@@ -16,6 +12,9 @@ public class Main {
         int checkEndTime = 0;
         int totalBill = 0;
         boolean inputValid = false;
+        boolean startTimeRange = false;
+        boolean endTimeRange = false;
+        boolean hourOrder = false;
         String familyDesignation;
 
 //front end checks
@@ -59,21 +58,27 @@ public class Main {
             if (inputLine.toUpperCase().contentEquals("A")) {
                 BabySitterFamilyA sitter = new BabySitterFamilyA(enteredStartTime, enteredEndTime);
 
-                if (sitter.checkStartTime() && sitter.checkEndTime() && sitter.checkHourOrder()) {
-                    System.out.println(sitter.calcHourTotals(totalBill));
-                } else {
-                    System.out.println("Invalid Hour Range");
-                    enteredStartTime = checkStartTimeEntry();
-                    enteredEndTime = checkEndTimeEntry();
-                    sitter.setStartTime(enteredStartTime);
-                    sitter.setEndTime(enteredEndTime);
-                    sitter.setEndMin(enteredEndTime);
-                    sitter.setStartAMorPM(enteredStartTime.substring(5, 7));
-                    sitter.setEndAMorPM(enteredEndTime.substring(5, 7));
-                    sitter.setCheckStartTime(Integer.parseInt(enteredStartTime.substring(0, 2)));
-                    sitter.setCheckEndTime(Integer.parseInt(enteredEndTime.substring(0, 2)));
-                    sitter.setCheckStartTimeMin(Integer.parseInt(enteredStartTime.substring(3, 5)));
-                    sitter.setCheckEndTimeMin(Integer.parseInt(enteredEndTime.substring(3, 5)));
+                while (!startTimeRange || !endTimeRange || !hourOrder) {
+                    startTimeRange = sitter.checkStartTime();
+                    endTimeRange = sitter.checkEndTime();
+                    hourOrder = sitter.checkHourOrder();
+                    if (startTimeRange && endTimeRange && hourOrder) {
+                        System.out.println(sitter.calcHourTotals(totalBill));
+                    } else {
+                        System.out.println("Invalid Hour Range");
+                        enteredStartTime = checkStartTimeEntry();
+                        enteredEndTime = checkEndTimeEntry();
+                        sitter.setStartTime(enteredStartTime);
+                        sitter.setEndTime(enteredEndTime);
+                        sitter.setEndMin(enteredEndTime);
+                        sitter.setStartAMorPM(enteredStartTime.substring(5, 7));
+                        sitter.setEndAMorPM(enteredEndTime.substring(5, 7));
+                        sitter.setCheckStartTime(Integer.parseInt(enteredStartTime.substring(0, 2)));
+                        sitter.setCheckEndTime(Integer.parseInt(enteredEndTime.substring(0, 2)));
+                        sitter.setCheckStartTimeMin(Integer.parseInt(enteredStartTime.substring(3, 5)));
+                        sitter.setCheckEndTimeMin(Integer.parseInt(enteredEndTime.substring(3, 5)));
+
+                    }
                 }
 
             } else if (inputLine.toUpperCase().contentEquals("B")) {
