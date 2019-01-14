@@ -62,11 +62,13 @@ public class BabySitter {
     }
 
     public void setStartAMorPM(String startAMorPM) {
-        this.startAMorPM = startAMorPM;
+        //this will always be set to uppercase for functionality and conformity
+        this.startAMorPM = startAMorPM.toUpperCase();
     }
 
     public void setEndAMorPM(String endAMorPM) {
-        this.endAMorPM = endAMorPM;
+        //this will always be set to uppercase for functionality and conformity
+        this.endAMorPM = endAMorPM.toUpperCase();
     }
 
     protected String getStartAMorPM() {
@@ -146,7 +148,7 @@ public class BabySitter {
         boolean checkEnd = false;
         if (checkValidAMorPM(endAMorPM)){
 
-            if (endAMorPM.contentEquals("PM")) {
+            if (endAMorPM.toUpperCase().contentEquals("PM")) {
                 //check PM range
                 checkEnd = validPMRange(checkEndTime);
             } else {checkEnd = validAMRange(checkEndTime);}
