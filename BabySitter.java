@@ -49,7 +49,7 @@ public class BabySitter {
         return checkStartTimeMin;
     }
 
-    public void setCheckStartTimeMin(int checkStartTime) {
+    public void setCheckStartTimeMin(int checkStartTimeMin) {
         this.checkStartTimeMin = checkStartTimeMin;
     }
 
@@ -202,5 +202,13 @@ public class BabySitter {
         }
 
         return startTimeAM;
+    }
+
+    protected boolean validHourRange () {
+        boolean validHourRange = false;
+        if(checkStartTime() && checkEndTime() && checkHourOrder())
+            validHourRange = true;
+
+        return validHourRange;
     }
 }
