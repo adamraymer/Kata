@@ -114,6 +114,11 @@ public class BabySitter {
         if ((startAMorPM.compareTo(endAMorPM) == 0)
                 && (getCheckEndTime() > getCheckStartTime())
                 && checkAMPMOrder()) {
+            // if start and end times are both AM or both PM
+            checkOrder = true;
+        } else if (checkAMPMOrder()){
+            // if the start time is PM and the end time is AM then it is still in order
+            // example: 11PM is before 2AM
             checkOrder = true;
         }
             return checkOrder;
