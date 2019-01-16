@@ -104,5 +104,17 @@ public class BabySitterFamilyB extends BabySitter {
         return totalBill;
     }
 
+    public void resetFamilyBValues(String enteredStartTime, String enteredEndTime) {
+        //this is used if new data is given after object creation
+        setStartTime(enteredStartTime);
+        setEndTime(enteredEndTime);
+        setEndMin(enteredEndTime);
+        setStartAMorPM(enteredStartTime.substring(5, 7));
+        setEndAMorPM(enteredEndTime.substring(5, 7));
+        setCheckStartTime(Integer.parseInt(enteredStartTime.substring(0, 2)));
+        setCheckEndTime(Integer.parseInt(enteredEndTime.substring(0, 2)));
+        setCheckStartTimeMin(Integer.parseInt(enteredStartTime.substring(3, 5)));
+        setCheckEndTimeMin(Integer.parseInt(enteredEndTime.substring(3, 5)));
 
+    }
 }
