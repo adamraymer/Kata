@@ -100,39 +100,55 @@ public class Main {
 
         } else if (familyToCalc.contentEquals("B")) {
             BabySitterFamilyB sitter = new BabySitterFamilyB(enteredStartTime, enteredEndTime);
-            if (sitter.checkStartTime() && sitter.checkEndTime() && sitter.checkHourOrder()) {
+            if (sitter.validHourRange()) {
+                //hour range entered was correct; calculate totals
                 System.out.println(sitter.calcHourTotals(totalBill));
             } else {
-                System.out.println("Invalid Hour Range");
-                enteredStartTime = checkStartTimeEntry();
-                enteredEndTime = checkEndTimeEntry();
-                sitter.setStartTime(enteredStartTime);
-                sitter.setEndTime(enteredEndTime);
-                sitter.setEndMin(enteredEndTime);
-                sitter.setStartAMorPM(enteredStartTime.substring(5, 7));
-                sitter.setEndAMorPM(enteredEndTime.substring(5, 7));
-                sitter.setCheckStartTime(Integer.parseInt(enteredStartTime.substring(0, 2)));
-                sitter.setCheckEndTime(Integer.parseInt(enteredEndTime.substring(0, 2)));
-                sitter.setCheckStartTimeMin(Integer.parseInt(enteredStartTime.substring(3, 5)));
-                sitter.setCheckEndTimeMin(Integer.parseInt(enteredEndTime.substring(3, 5)));
+                while ((!sitter.validHourRange()) && (!isTimeX(enteredStartTime) || !isTimeX(enteredEndTime))) {
+                    //loop through until valid data is found
+                    System.out.println("Invalid Hour Range");
+                    //Bad hour range, try again
+                    //first, check to see if input is valid; if X, exit
+                    enteredStartTime = checkStartTimeEntry();
+                    if (isTimeX(enteredStartTime)) {
+                        enteredEndTime = "X";
+                    } else {
+                        enteredEndTime = checkEndTimeEntry();
+                        if (!isTimeX(enteredEndTime)) {
+                            sitter.resetFamilyBValues(enteredStartTime, enteredEndTime);
+                        }
+                    }
+                    //check if input is valid or if it is X to exit
+                    if (sitter.validHourRange() && (!isTimeX(enteredStartTime) || !isTimeX(enteredEndTime))) {
+                        System.out.println(sitter.calcHourTotals(totalBill));
+                    }
+                }
             }
         } else {
             BabySitterFamilyC sitter = new BabySitterFamilyC(enteredStartTime, enteredEndTime);
-            if (sitter.checkStartTime() && sitter.checkEndTime() && sitter.checkHourOrder()) {
+            if (sitter.validHourRange()) {
+                //hour range entered was correct; calculate totals
                 System.out.println(sitter.calcHourTotals(totalBill));
             } else {
-                System.out.println("Invalid Hour Range");
-                enteredStartTime = checkStartTimeEntry();
-                enteredEndTime = checkEndTimeEntry();
-                sitter.setStartTime(enteredStartTime);
-                sitter.setEndTime(enteredEndTime);
-                sitter.setEndMin(enteredEndTime);
-                sitter.setStartAMorPM(enteredStartTime.substring(5, 7));
-                sitter.setEndAMorPM(enteredEndTime.substring(5, 7));
-                sitter.setCheckStartTime(Integer.parseInt(enteredStartTime.substring(0, 2)));
-                sitter.setCheckEndTime(Integer.parseInt(enteredEndTime.substring(0, 2)));
-                sitter.setCheckStartTimeMin(Integer.parseInt(enteredStartTime.substring(3, 5)));
-                sitter.setCheckEndTimeMin(Integer.parseInt(enteredEndTime.substring(3, 5)));
+                while ((!sitter.validHourRange()) && (!isTimeX(enteredStartTime) || !isTimeX(enteredEndTime))) {
+                    //loop through until valid data is found
+                    System.out.println("Invalid Hour Range");
+                    //Bad hour range, try again
+                    //first, check to see if input is valid; if X, exit
+                    enteredStartTime = checkStartTimeEntry();
+                    if (isTimeX(enteredStartTime)) {
+                        enteredEndTime = "X";
+                    } else {
+                        enteredEndTime = checkEndTimeEntry();
+                        if (!isTimeX(enteredEndTime)) {
+                            sitter.resetFamilyCValues(enteredStartTime, enteredEndTime);
+                        }
+                    }
+                    //check if input is valid or if it is X to exit
+                    if (sitter.validHourRange() && (!isTimeX(enteredStartTime) || !isTimeX(enteredEndTime))) {
+                        System.out.println(sitter.calcHourTotals(totalBill));
+                    }
+                }
             }
         }
     }
@@ -170,6 +186,17 @@ public class Main {
                     numericStartTime = true;
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid Start Time Entry: " + startTime);
+                    System.out.print("Enter Start Time (hh:mmAMPM format) ");
+                    startTime = in.nextLine();
+                }
+            }
+
+            boolean colonRightSpot = false;
+            while (!colonRightSpot && !isTimeX(startTime)){
+                if (startTime.substring(2,3).contentEquals(":")) {
+                    colonRightSpot = true;
+                } else {
+                    System.out.println("Missing ':' or in incorrect format");
                     System.out.print("Enter Start Time (hh:mmAMPM format) ");
                     startTime = in.nextLine();
                 }
@@ -231,5 +258,6 @@ public class Main {
         return isTimeX;
 
     }
+
 
 }
