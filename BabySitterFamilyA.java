@@ -17,7 +17,7 @@ public class BabySitterFamilyA extends BabySitter {
 
     //Family A pays $15 per hour before 11pm, and $20 per hour the rest of the night
 
-    public int calcHourTotals(int totalBill) {
+    protected int calcHourTotals(int totalBill) {
         int startHour;
         int endHour;
         String startAMorPM;
@@ -43,7 +43,7 @@ public class BabySitterFamilyA extends BabySitter {
             }
         }
 
-        if (!startTimeAM) {
+        if (!startTimeAM && endHour != startHour) {
             if (!endTimeAM && endHour < 11) {
                 pmStopTime = endHour;
             } else {pmStopTime = 11;}
