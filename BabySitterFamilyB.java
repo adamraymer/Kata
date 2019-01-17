@@ -67,7 +67,7 @@ public class BabySitterFamilyB extends BabySitter {
                 }
             }
 
-            if ((startHour >= 10 && startHour <= 12 && endTimeAM) || (endHour >= 10 && endHour <= 12)) {
+            if ((startHour >= 10 && startHour < 12 && endTimeAM) || (endHour >= 10 && endHour <= 12)) {
                 //add range of 10:00PM to 12:00AM if endTime falls in that range
                 if (startHour >= 10 && !startTimeAM) {
                     pmStartTime = startHour;
