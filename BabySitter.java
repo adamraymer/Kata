@@ -11,19 +11,12 @@ public class BabySitter {
     private int checkStartTimeMin;
     private int checkEndTimeMin;
     private int endMin;
-    private int startMin;
 
-    public String getStartTime() {
-        return startTime;
-    }
 
     public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
-        return endTime;
-    }
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
@@ -112,7 +105,7 @@ public class BabySitter {
         boolean checkOrder = false;
 
         if ((startAMorPM.compareTo(endAMorPM) == 0)
-                && (getCheckEndTime() > getCheckStartTime())
+                && ((getCheckEndTime() > getCheckStartTime()) || ((getCheckEndTime() == getCheckStartTime()) && (getCheckEndTimeMin() > getCheckStartTimeMin()) ))
                 && checkAMPMOrder()) {
             // if start and end times are both AM or both PM
             checkOrder = true;
@@ -138,7 +131,7 @@ public class BabySitter {
                 checkStart = validPMRange(checkStartTime);
 
 
-            } else {checkStart = validAMRange(checkStartTime);}
+            } else {checkStart = validAMRange(checkStartTime, 0);}
         }
 
             return checkStart;
@@ -156,7 +149,7 @@ public class BabySitter {
             if (endAMorPM.toUpperCase().contentEquals("PM")) {
                 //check PM range
                 checkEnd = validPMRange(checkEndTime);
-            } else {checkEnd = validAMRange(checkEndTime);}
+            } else {checkEnd = validAMRange(checkEndTime, endMin);}
         }
 
         return checkEnd;
@@ -181,11 +174,15 @@ public class BabySitter {
 
     }
 
-    private boolean validAMRange (int value){
+    private boolean validAMRange (int hour, int min){
 
         boolean validAMRange = false;
-        if ((value == 12) || (value <= 4))
-            validAMRange = true;
+        if ((hour == 12) || (hour <= 4)) {
+            //any value greater than 1 for min and hour = 4 would put it past 4AM
+            if (hour != 4 || min == 0) {
+                validAMRange = true;
+            }
+        }
 
             return validAMRange;
 
