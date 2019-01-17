@@ -36,57 +36,64 @@ public class BabySitterFamilyA extends BabySitter {
 
         if (endHour == startHour) {
             //start time and end time occur in the same hour
-            if (startHour < 11) {
+            if ((startHour < 11 && !startTimeAM)) {
                 totalBill = 15;
             } else {
                 totalBill = 20;
             }
-        }
-
-        if (!startTimeAM && endHour != startHour) {
-            if (!endTimeAM && endHour < 11) {
-                pmStopTime = endHour;
-            } else {pmStopTime = 11;}
-
-            for (int i = startHour; i < pmStopTime; i++) {
-                totalBill = totalBill + 15;
-            }
-
-            if (endHour < 11 && getEndMin() > 1) {
-                //add one more hour for partial hour
-                totalBill = totalBill + 15;
-            }
-        }
-
-
-        if (endHour >= 11) {
-            // if endHour >= 9 then it is PM due to range constraints
-            for (int i = 11; i < endHour; i++ ){
-                totalBill = totalBill + 20;
-            }
-            if (getEndMin() > 1) {
-                //add one more hour for partial hour
-                totalBill = totalBill + 20;
-            }
-        } else if (endTimeAM) {
-            //endHour is between 1 to 4
-            //add one hour to cover 11PM to 12AM if start time was PM
+        } else {
             if (!startTimeAM) {
-                totalBill = totalBill + 20;
-
-                for (int i = 0; i <= endHour; i++) {
-                    totalBill = totalBill + 20;
+                if (!endTimeAM && endHour < 11) {
+                    pmStopTime = endHour;
+                } else {
+                    pmStopTime = 11;
                 }
-            } else {
-                //AM start time
-                for (int i = startHour; i < endHour; i++) {
-                    totalBill = totalBill + 20;
+
+                for (int i = startHour; i < pmStopTime; i++) {
+                    totalBill = totalBill + 15;
+                }
+
+                if (endHour < 11 && getEndMin() > 1) {
+                    //add one more hour for partial hour
+                    totalBill = totalBill + 15;
                 }
             }
 
-            if (getEndMin() > 1) {
-                //add one more hour for partial hour
-                totalBill = totalBill + 20;
+
+            if (endHour >= 11) {
+                // if endHour >= 9 then it is PM due to range constraints
+                for (int i = 11; i < endHour; i++) {
+                    totalBill = totalBill + 20;
+                }
+                if (getEndMin() > 1) {
+                    //add one more hour for partial hour
+                    totalBill = totalBill + 20;
+                }
+            } else if (endTimeAM) {
+                //endHour is between 1 to 4
+                //add one hour to cover 11PM to 12AM if start time was PM
+                if (!startTimeAM) {
+                    totalBill = totalBill + 20;
+
+                    for (int i = 0; i < endHour; i++) {
+                        totalBill = totalBill + 20;
+                    }
+                } else {
+                    //AM start time
+                    if (startHour == 12) {
+                        startHour = 0;
+                    }
+                    //time period between 1AM and 4AM
+                    for (int i = startHour; i < endHour; ++i) {
+                        totalBill = totalBill + 20;
+                    }
+
+                }
+
+                if (getEndMin() > 1) {
+                    //add one more hour for partial hour
+                    totalBill = totalBill + 20;
+                }
             }
         }
 
