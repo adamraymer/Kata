@@ -6,20 +6,48 @@ public class Main {
 
     public static void main(String[] args) {
         // test babysitter driver
-        String enteredStartTime;
-        String enteredEndTime;
-        int totalBill = 0;
-        boolean inputValid = false;
-
 
 //front end checks
+
+        String familyToCalc;
+        familyToCalc = determineFamily();
+
+        String enteredStartTime;
+        String enteredEndTime;
+
+        //enter time values. If invalid, loop until valid. If X, exit. This is true for both start and
+        //end times
+        if (!familyToCalc.contentEquals("X")) {
+            enteredStartTime = checkTimeEntry(true);
+
+            if (isTimeX(enteredStartTime)) {
+                enteredEndTime = "X";
+            } else {
+                //if enteredEndTime becomes X it will be checked by isTimeX(string) later
+                enteredEndTime = checkTimeEntry(false);
+            }
+        } else {
+            //set entered times to X as well
+            enteredStartTime = "X";
+            enteredEndTime = "X";
+        }
+
+        calcFamilyHours(familyToCalc, enteredStartTime, enteredEndTime);
+
+    }
+
+    private static String determineFamily() {
+
+        //determine which family to calculate the total for. If X, exit the program
+        String familyToCalc = " ";
+
         Scanner in = new Scanner(System.in);
 
         System.out.println("Babysitter hourly calculator (X to quit)");
         System.out.print("Which family is this for? ");
         String inputLine = in.nextLine().toUpperCase();
-        String familyToCalc = " ";
 
+        boolean inputValid = false;
         while (!inputValid) {
 
             switch (inputLine) {
@@ -51,22 +79,15 @@ public class Main {
 
         }
 
+        return familyToCalc;
 
-        if (!familyToCalc.contentEquals("X")) {
-            enteredStartTime = checkTimeEntry(true);
+    }
 
-            if (isTimeX(enteredStartTime)) {
-                enteredEndTime = "X";
-            } else {
-                //if enteredEndTime becomes X it will be checked by isTimeX(string) later
-                enteredEndTime = checkTimeEntry(false);
-            }
-        } else {
-            //set entered times to X as well
-            enteredStartTime = "X";
-            enteredEndTime = "X";
-        }
+    private static void calcFamilyHours(String familyToCalc, String enteredStartTime, String enteredEndTime) {
+        //this will calculate total bill by family. After entry has been validated for basic rules
+        //it will check to see if the range is correct before continuing. The use can X to escape
 
+        int totalBill = 0;
 
         if (!isTimeX(enteredStartTime) && !isTimeX(enteredEndTime)) {
             if (familyToCalc.contentEquals("A")) {
@@ -74,7 +95,7 @@ public class Main {
 
                 if (sitter.validHourRange()) {
                     //hour range entered was correct; calculate totals
-                    System.out.println(sitter.calcHourTotals(totalBill));
+                    System.out.println("Total Hourly Bill: $" + sitter.calcHourTotals(totalBill));
                 } else {
                     while ((!sitter.validHourRange()) && (!isTimeX(enteredStartTime) || !isTimeX(enteredEndTime))) {
                         //loop through until valid data is found
@@ -92,15 +113,16 @@ public class Main {
                         }
                         //check if input is valid or if it is X to exit
                         if (sitter.validHourRange() && (!isTimeX(enteredStartTime) || !isTimeX(enteredEndTime))) {
-                            System.out.println(sitter.calcHourTotals(totalBill));
+                            System.out.println("Total Hourly Bill: $" + sitter.calcHourTotals(totalBill));
                         }
                     }
                 }
             } else if (familyToCalc.contentEquals("B")) {
                 BabySitterFamilyB sitter = new BabySitterFamilyB(enteredStartTime, enteredEndTime);
+
                 if (sitter.validHourRange()) {
                     //hour range entered was correct; calculate totals
-                    System.out.println(sitter.calcHourTotals(totalBill));
+                    System.out.println("Total Hourly Bill: $" + sitter.calcHourTotals(totalBill));
                 } else {
                     while ((!sitter.validHourRange()) && (!isTimeX(enteredStartTime) || !isTimeX(enteredEndTime))) {
                         //loop through until valid data is found
@@ -118,15 +140,16 @@ public class Main {
                         }
                         //check if input is valid or if it is X to exit
                         if (sitter.validHourRange() && (!isTimeX(enteredStartTime) || !isTimeX(enteredEndTime))) {
-                            System.out.println(sitter.calcHourTotals(totalBill));
+                            System.out.println("Total Hourly Bill: $" + sitter.calcHourTotals(totalBill));
                         }
                     }
                 }
             } else {
                 BabySitterFamilyC sitter = new BabySitterFamilyC(enteredStartTime, enteredEndTime);
+
                 if (sitter.validHourRange()) {
                     //hour range entered was correct; calculate totals
-                    System.out.println(sitter.calcHourTotals(totalBill));
+                    System.out.println("Total Hourly Bill: $" + sitter.calcHourTotals(totalBill));
                 } else {
                     while ((!sitter.validHourRange()) && (!isTimeX(enteredStartTime) || !isTimeX(enteredEndTime))) {
                         //loop through until valid data is found
@@ -144,7 +167,7 @@ public class Main {
                         }
                         //check if input is valid or if it is X to exit
                         if (sitter.validHourRange() && (!isTimeX(enteredStartTime) || !isTimeX(enteredEndTime))) {
-                            System.out.println(sitter.calcHourTotals(totalBill));
+                            System.out.println("Total Hourly Bill: $" + sitter.calcHourTotals(totalBill));
                         }
                     }
                 }
@@ -152,12 +175,9 @@ public class Main {
         }
     }
 
-
-
-
     private static String checkTimeEntry (boolean isStartTime) {
 
-        boolean validLength = false;
+
         String checkTime;
         Scanner in = new Scanner(System.in);
         if (isStartTime) {
@@ -168,6 +188,7 @@ public class Main {
         checkTime = in.nextLine();
 
         // if "X" to exit skip checks and return "X"
+        boolean validLength = false;
         if (!isTimeX(checkTime)) {
             //a valid length should be 7 characters
             while (!validLength && !isTimeX(checkTime)) {
@@ -226,12 +247,27 @@ public class Main {
                     checkTime = in.nextLine();
                 }
             }
+
+            while (checkNotValidAMorPM(checkTime.toUpperCase().substring(5,7)) && !isTimeX(checkTime)){
+                if (checkNotValidAMorPM(checkTime.toUpperCase().substring(5,7))) {
+                    if (isStartTime) {
+                        //start time
+                        System.out.println("AM or PM not selected " + checkTime);
+                        System.out.print("Enter Start Time (hh:mmAMPM format) ");
+                    } else {
+                        //end time
+                        System.out.println("AM or PM not selected " + checkTime);
+                        System.out.print("Enter End Time (hh:mmAMPM format) ");
+                    }
+                    checkTime = in.nextLine();
+                }
+            }
         }
 
         return checkTime;
 
     }
-    
+
 
     private static boolean isTimeX(String time) {
         //check to see if X was entered for a time parameter. This is used to skip the rest of processing
@@ -243,5 +279,13 @@ public class Main {
 
     }
 
+    private static boolean checkNotValidAMorPM (String valueNotAMPM){
+        //check to make sure that the value for AM or PM is valid
+        boolean validNotAMorPM = true;
+        if (valueNotAMPM.contentEquals("AM") || valueNotAMPM.contentEquals("PM") )
+            validNotAMorPM = false;
+
+        return validNotAMorPM;
+    }
 
 }
