@@ -12,13 +12,12 @@ public class BabySitter {
     private int checkEndTimeMin;
     private int endMin;
 
-
-    public void setStartTime(String startTime) {
+//getters and setters
+    protected void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-
-    public void setEndTime(String endTime) {
+    protected void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
@@ -26,7 +25,7 @@ public class BabySitter {
         return checkStartTime;
     }
 
-    public void setCheckStartTime(int checkStartTime) {
+    protected void setCheckStartTime(int checkStartTime) {
         this.checkStartTime = checkStartTime;
     }
 
@@ -34,7 +33,7 @@ public class BabySitter {
         return checkEndTime;
     }
 
-    public void setCheckEndTime(int checkEndTime) {
+    protected void setCheckEndTime(int checkEndTime) {
         this.checkEndTime = checkEndTime;
     }
 
@@ -42,7 +41,7 @@ public class BabySitter {
         return checkStartTimeMin;
     }
 
-    public void setCheckStartTimeMin(int checkStartTimeMin) {
+    protected void setCheckStartTimeMin(int checkStartTimeMin) {
         this.checkStartTimeMin = checkStartTimeMin;
     }
 
@@ -50,16 +49,16 @@ public class BabySitter {
         return checkEndTimeMin;
     }
 
-    public void setCheckEndTimeMin(int checkEndTimeMin) {
+    protected void setCheckEndTimeMin(int checkEndTimeMin) {
         this.checkEndTimeMin = checkEndTimeMin;
     }
 
-    public void setStartAMorPM(String startAMorPM) {
+    protected void setStartAMorPM(String startAMorPM) {
         //this will always be set to uppercase for functionality and conformity
         this.startAMorPM = startAMorPM.toUpperCase();
     }
 
-    public void setEndAMorPM(String endAMorPM) {
+    protected void setEndAMorPM(String endAMorPM) {
         //this will always be set to uppercase for functionality and conformity
         this.endAMorPM = endAMorPM.toUpperCase();
     }
@@ -77,14 +76,6 @@ public class BabySitter {
     protected int getEndMin () {return endMin;}
 
 
-    public BabySitter (String enteredStartTime, String enteredEndTime){
-        startTime = enteredStartTime;
-        endTime = enteredEndTime;
-        startAMorPM = startTime.substring(5,7);
-        endAMorPM = endTime.substring(5,7);
-
-    }
-
     public BabySitter (){
         startTime = "00:00AM";
         endTime = "00:00PM";
@@ -92,7 +83,9 @@ public class BabySitter {
         endAMorPM = endTime.substring(5,7);
 
     }
+
     private boolean checkAMPMOrder (){
+        // due to the time range, make sure PM is before AM
         boolean checkOrder = true;
         if (startAMorPM.contentEquals("AM") && endAMorPM.contentEquals("PM")){
             checkOrder = false;
@@ -117,52 +110,34 @@ public class BabySitter {
             return checkOrder;
     }
 
-    //remove AMorPM check once the interface is created. Should be able to do it there
-    public boolean checkStartTime (){
+
+    private boolean checkStartTime (){
         //this will check start time
         //check value first
 
-        boolean checkStart = false;
-
-        if (checkValidAMorPM(startAMorPM)){
-
-            if (startAMorPM.contentEquals("PM")) {
-                //check PM range
-                checkStart = validPMRange(checkStartTime);
+        boolean checkStart;
+        //check PM range
+        if (startAMorPM.contentEquals("PM")) { checkStart = validPMRange(checkStartTime);}
+        else {checkStart = validAMRange(checkStartTime, 0);}
 
 
-            } else {checkStart = validAMRange(checkStartTime, 0);}
-        }
-
-            return checkStart;
+        return checkStart;
 
     }
 
-    public boolean checkEndTime (){
+    private boolean checkEndTime (){
         //this will check end time
         //check value first
 
         //grab AM or PM
         boolean checkEnd = false;
-        if (checkValidAMorPM(endAMorPM)){
-
-            if (endAMorPM.toUpperCase().contentEquals("PM")) {
-                //check PM range
-                checkEnd = validPMRange(checkEndTime);
-            } else {checkEnd = validAMRange(checkEndTime, endMin);}
-        }
+        //check PM range
+        if (endAMorPM.contentEquals("PM")) {checkEnd = validPMRange(checkEndTime);}
+        else {checkEnd = validAMRange(checkEndTime, endMin);}
 
         return checkEnd;
     }
 
-   private boolean checkValidAMorPM (String value){
-
-        boolean validAMorPM = false;
-        if (value.contentEquals("AM") || value.contentEquals("PM") )
-            validAMorPM = true;
-
-            return validAMorPM;
-    }
 
     private boolean validPMRange (int value){
 
@@ -213,4 +188,6 @@ public class BabySitter {
 
         return validHourRange;
     }
+
+
 }
