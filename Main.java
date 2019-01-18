@@ -44,7 +44,7 @@ public class Main {
         Scanner in = new Scanner(System.in);
 
         System.out.println("Babysitter hourly calculator (X to quit)");
-        System.out.print("Which family is this for? ");
+        System.out.print("Which family is this for? (A,B, or C) ");
         String inputLine = in.nextLine().toUpperCase();
 
         boolean inputValid = false;
@@ -73,7 +73,7 @@ public class Main {
             }
 
             if (!inputValid) {
-                System.out.println("Which family is this for? ");
+                System.out.println("Which family is this for? (A,B, or C) ");
                 inputLine = in.nextLine().toUpperCase();
             }
 

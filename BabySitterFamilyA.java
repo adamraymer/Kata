@@ -1,5 +1,7 @@
 package com.adamraymer.kata1;
 
+//Family A babysitter calculation
+
 public class BabySitterFamilyA extends BabySitter {
 
     public BabySitterFamilyA(String enteredStartTime, String enteredEndTime) {

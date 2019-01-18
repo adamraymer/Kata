@@ -2,7 +2,7 @@ package com.adamraymer.kata1;
 
 public class BabySitterFamilyC extends BabySitter{
 
-
+//Family C babysitter calculation
         public BabySitterFamilyC(String enteredStartTime, String enteredEndTime) {
             setStartTime(enteredStartTime);
             setEndTime(enteredEndTime);
@@ -69,7 +69,11 @@ public class BabySitterFamilyC extends BabySitter{
 
                 if (endHour >= 9) {
                     // if endHour >= 9 then it is PM due to range constraints
-                    for (int i = 9; i < endHour; i++) {
+                    if (startHour < 9) {
+                        //move 9 to startHour to start calculating the total for the second tier
+                        startHour = 9;
+                    }
+                    for (int i = startHour; i < endHour; i++) {
                         totalBill = totalBill + 15;
                     }
                     if (getEndMin() > 1) {
