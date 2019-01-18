@@ -1,5 +1,7 @@
 package com.adamraymer.kata1;
 
+//Family A babysitter calculation
+
 public class BabySitterFamilyB extends BabySitter {
 
     public BabySitterFamilyB(String enteredStartTime, String enteredEndTime) {
@@ -61,13 +63,13 @@ public class BabySitterFamilyB extends BabySitter {
                     totalBill = totalBill + 12;
                 }
 
-                if (endHour <= 10 && !endTimeAM && getEndMin() > 1) {
+                if (endHour < 10 && !endTimeAM && getEndMin() > 1) {
                     //add one more hour for partial hour
                     totalBill = totalBill + 12;
                 }
             }
 
-            if ((startHour >= 10 && startHour < 12 && endTimeAM) || (endHour >= 10 && endHour <= 12)) {
+            if ((startHour < 12 && endTimeAM) || (endHour >= 10 && endHour < 12)) {
                 //add range of 10:00PM to 12:00AM if endTime falls in that range
                 if (startHour >= 10 && !startTimeAM) {
                     pmStartTime = startHour;

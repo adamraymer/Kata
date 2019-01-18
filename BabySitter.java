@@ -98,11 +98,11 @@ public class BabySitter {
         boolean checkOrder = false;
 
         if ((startAMorPM.compareTo(endAMorPM) == 0)
-                && ((getCheckEndTime() > getCheckStartTime()) || ((getCheckEndTime() == getCheckStartTime()) && (getCheckEndTimeMin() > getCheckStartTimeMin()) ))
-                && checkAMPMOrder()) {
+                && ((getCheckEndTime() > getCheckStartTime()) || ((getCheckEndTime() == getCheckStartTime()) && (getCheckEndTimeMin() > getCheckStartTimeMin())))) {
             // if start and end times are both AM or both PM
             checkOrder = true;
-        } else if (checkAMPMOrder()){
+        }
+        if (checkAMPMOrder() && startAMorPM.compareTo(endAMorPM) != 0){
             // if the start time is PM and the end time is AM then it is still in order
             // example: 11PM is before 2AM
             checkOrder = true;
@@ -164,6 +164,8 @@ public class BabySitter {
     }
 
     protected boolean setEndTimeAM(String endAMorPM) {
+        //check to see if endtime is AM
+
         boolean endTimeAM = false;
         if (endAMorPM.contentEquals("AM")) {
             endTimeAM = true;
@@ -173,6 +175,8 @@ public class BabySitter {
     }
 
     protected boolean setStartTimeAM (String startAMorPM) {
+        //check to see if starttime is AM
+
         boolean startTimeAM = false;
         if (startAMorPM.contentEquals("AM")) {
             startTimeAM = true;
@@ -182,6 +186,8 @@ public class BabySitter {
     }
 
     protected boolean validHourRange () {
+        //are starttime and endtime valid?
+
         boolean validHourRange = false;
         if(checkStartTime() && checkEndTime() && checkHourOrder())
             validHourRange = true;
